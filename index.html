@@ -51,29 +51,44 @@
                 <span class="mr-2">🎁</span> รายการของรางวัล (ของแถมคุ้มทุน)
             </h3>
             <div class="space-y-3">
+                <!-- รางวัลที่ 1: 3 แต้ม -->
                 <div class="flex items-center justify-between p-3 bg-emerald-50/50 rounded-xl border border-emerald-100">
                     <div>
                         <p class="font-medium text-emerald-900 text-sm">ฟรี! เมล็ดผัก 1 ชุด</p>
                         <p class="text-xs text-slate-500">เลือกรับเมล็ดผักสวนครัวชนิดใดก็ได้</p>
                     </div>
-                    <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-1 rounded-lg">3 แต้ม</span>
+                    <div class="text-right">
+                        <span class="block bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-1 rounded-lg mb-1">3 แต้ม</span>
+                        <button onclick="claimReward('เมล็ดผัก 1 ชุด', 3)" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3 py-1 rounded-md shadow">แลกรับ</button>
+                    </div>
                 </div>
+
+                <!-- รางวัลที่ 2: 6 แต้ม -->
                 <div class="flex items-center justify-between p-3 bg-emerald-50/50 rounded-xl border border-emerald-100">
                     <div>
                         <p class="font-medium text-emerald-900 text-sm">ฟรี! ดินปลูก 1 ถุง</p>
                         <p class="text-xs text-slate-500">สูตรเพิ่มสารอาหารพร้อมปลูก</p>
                     </div>
-                    <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-1 rounded-lg">6 แต้ม</span>
+                    <div class="text-right">
+                        <span class="block bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-1 rounded-lg mb-1">6 แต้ม</span>
+                        <button onclick="claimReward('ดินปลูก 1 ถุง', 6)" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3 py-1 rounded-md shadow">แลกรับ</button>
+                    </div>
                 </div>
+
+                <!-- รางวัลที่ 3: 12 แต้ม -->
                 <div class="flex items-center justify-between p-3 bg-emerald-50/50 rounded-xl border border-emerald-100">
                     <div>
                         <p class="font-medium text-emerald-900 text-sm">ฟรี! เมล็ดผัก 3 ชุด</p>
                         <p class="text-xs text-slate-500">ชุดสุดคุ้ม เลือกได้ตามใจชอบ</p>
                     </div>
-                    <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-1 rounded-lg">12 แต้ม</span>
+                    <div class="text-right">
+                        <span class="block bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-1 rounded-lg mb-1">12 แต้ม</span>
+                        <button onclick="claimReward('เมล็ดผัก 3 ชุด', 12)" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3 py-1 rounded-md shadow">แลกรับ</button>
+                    </div>
                 </div>
             </div>
         </section>
+
 
         <!-- Products Section (10 Sets) -->
         <section>
@@ -88,7 +103,7 @@
 
     <!-- Script สำหรับเชื่อมต่อ LINE LIFF และแสดงข้อมูลสินค้า -->
     <script>
-        const LIFF_ID = "YOUR_LIFF_ID_HERE"; // แทนที่ด้วย LIFF ID ของคุณหลังจากสร้างใน LINE Developers
+        const LIFF_ID = "YOUR_LIFF_ID_HERE"; 
 
         const products = [
             { id: 1, name: "ชุดมือใหม่ รับทรัพย์", price: "69.-", desc: "เหมาะสำหรับผู้เริ่มต้น" },
@@ -172,3 +187,11 @@
     </script>
 </body>
 </html>
+        function claimReward(rewardName, requiredPoints) {
+            const currentPoints = parseInt(document.getElementById('user-points').innerText);
+            if (currentPoints >= requiredPoints) {
+                alert(`🎉 ยินดีด้วย! คุณมี ${currentPoints} แต้ม สามารถกดแลก "${rewardName}" ได้\n(โปรดแสดงหน้าจอนี้ให้แอดมินร้านพรรณวัฒน์ตรวจสอบเพื่อรับของรางวัล)`);
+            } else {
+                alert(`❌ แต้มสะสมยังไม่พอ (คุณมี ${currentPoints} แต้ม / ต้องการ ${requiredPoints} แต้ม)`);
+            }
+        }
