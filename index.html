@@ -145,8 +145,7 @@
 
     <!-- Script จัดการระบบ -->
     <script>
-        const LIFF_ID = "YOUR_LIFF_ID_HERE"; // 2005648233
-
+        const LIFF_ID = "2005648233"; // ใสบรหัส LIFF ID ของคุณเรียบร้อยแล้ว
         let selectedReward = {};
 
         const products = [
@@ -206,7 +205,6 @@
             document.getElementById(modalId).classList.add('hidden');
         }
 
-        // ฟังก์ชันส่งข้อมูลการแลกออนไลน์เข้าแชท LINE OA ของร้านอัตโนมัติ
         async function submitOnlineForm() {
             const name = document.getElementById('custName').value.trim();
             const phone = document.getElementById('custPhone').value.trim();
@@ -223,7 +221,6 @@
                                 `📞 เบอร์โทร: ${phone}\n` +
                                 `📍 ที่อยู่: ${address}`;
 
-            // ตรวจสอบว่าเปิดผ่าน LINE LIFF อยู่หรือไม่ เพื่อส่งข้อความเข้าแชทอัตโนมัติ
             if (liff.isInClient()) {
                 try {
                     await liff.sendMessages([{
@@ -231,12 +228,11 @@
                         text: messageText
                     }]);
                     alert('🎉 ส่งข้อมูลการแลกของรางวัลให้แอดมินเรียบร้อยแล้ว!');
-                    liff.closeWindow(); // ปิดหน้าต่าง LIFF กลับเข้าแชท LINE
+                    liff.closeWindow();
                 } catch (error) {
                     alert('เกิดข้อผิดพลาดในการส่งข้อความ กรุณาลองใหม่อีกครั้ง');
                 }
             } else {
-                // กรณีทดสอบนอกแอป LINE ให้แสดงข้อความจำลอง
                 alert(`[โหมดทดสอบนอก LINE]\nข้อมูลที่จะส่งหาแอดมิน:\n\n${messageText}`);
                 closeModal('onlineModal');
             }
@@ -249,7 +245,9 @@
                 if (liff.isLoggedIn()) {
                     const profile = await liff.getProfile();
                     document.getElementById('user-name').innerText = profile.displayName;
-                    document.getElementById('user-picture').src = profile.pictureUrl;
+                    if (profile.pictureUrl) {
+                        document.getElementById('user-picture').src = profile.pictureUrl;
+                    }
                 } else {
                     liff.login();
                 }
